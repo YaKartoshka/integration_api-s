@@ -18,7 +18,7 @@ SF_USERNAME='YOUR USERNAME'
 SF_PASSWORD='YOUR PASSWORD'
 SF_TOKEN='YOUR ACCESS TOKEN'
 ```
-## 4) Sample Usage
+## 4) Sample Usage(Connection)
 in server.js
 ```
 var jsforce = require('jsforce');
@@ -42,6 +42,23 @@ conn.login(SF_USERNAME, SF_PASSWORD+SF_TOKEN, function(err, userInfo) {
   
 });
 
+```
+## 5) Create Account Or Lead (EXAMPLE)
+Create User
+```
+ conn.sobject('Lead').create({ Name: 'Test_Name' }, function(err, ret) {
+    if (err || !ret.success) { return console.error(err, ret); }
+    console.log("Created record id : " + ret.id);
+    // ...
+  });
+```
+Create Lead
+```
+conn.sobject('Lead').create({ FirstName : 'My Account #1', LastName:'Test', Company:'TestCorp' }, function(err, ret) {
+    if (err || !ret.success) { return console.error(err, ret); }
+    console.log("Created record id : " + ret.id);
+    // ...
+    });
 ```
 
 
