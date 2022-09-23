@@ -44,9 +44,9 @@ conn.login(SF_USERNAME, SF_PASSWORD+SF_TOKEN, function(err, userInfo) {
 
 ```
 ## 5) Create Account Or Lead (EXAMPLE)
-Create User
+Create Account
 ```
- conn.sobject('Lead').create({ Name: 'Test_Name' }, function(err, ret) {
+ conn.sobject('Account').create({ Name: 'Test_Name' }, function(err, ret) {
     if (err || !ret.success) { return console.error(err, ret); }
     console.log("Created record id : " + ret.id);
     // ...
