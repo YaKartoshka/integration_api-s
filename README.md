@@ -8,7 +8,7 @@ After creating an account to receive a token, we do these actions
 Profile -> Settings -> My Personal Information -> Reset My Security Token
 ## 2) Should install packages for get started
 ```
-npm i jsforce,dotenv
+npm install jsforce, dotenv
 ```
 ## 3) node js Configure
 create .env file in your project then do this:
