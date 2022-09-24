@@ -60,5 +60,14 @@ conn.sobject('Lead').create({ FirstName : 'My Account #1', LastName:'Test', Comp
     // ...
     });
 ```
+Create Contact
+```
+conn.sobject('Contact').create({LastName: 'test_lname',Phone: '+77771234567'}, function(err, ret) {
+      if (err || !ret.success) { return console.error(err, ret); }
+      console.log("Created record id : " + ret.id);
+      console.log(ret)
+      // ...
+    });
+```
 
 
