@@ -3,6 +3,7 @@ JSforce is a isomorphic JavaScript Library utilizing Salesforce's API: It works 
 ## Quick Links
 1. [JSForce and Nodejs Documentation](https://jsforce.github.io/document/)
 2. [JSForce API Docs](http://jsforce.github.io/jsforce/doc/)
+3. [JSFORCE API ERROR API DISABLED](https://stackoverflow.com/questions/58200478/api-disabled-for-org-api-is-not-enabled-for-this-organization-or-partner)
 ## 1) Create developer account in Salesforce and get Access_token
 After creating an account to receive a token, we do these actions
 Profile -> Settings -> My Personal Information -> Reset My Security Token
