@@ -1,11 +1,10 @@
 require('dotenv').config();
 const express = require('express');
 const fs = require('fs');
-const router = express.Router();
+const app=express();
 const request = require('request');
 const jsforce = require('jsforce');
-const e = require('express');
-
+const port=3000 || process.env.PORT;
 var r={r:200};
 
 const {SF_LOGIN_URL,SF_USERNAME,SF_PASSWORD,SF_TOKEN}=process.env;
@@ -27,7 +26,7 @@ conn.login(SF_USERNAME, SF_PASSWORD+SF_TOKEN, function(err, userInfo) {
   
 });
 
-router.post('/create/lead',async(req,res)=>{
+app.post('/create/lead',async(req,res)=>{
     const firstName=req.body.first_name;
     const lastName=req.body.last_name;
     const company=req.body.company;
@@ -46,7 +45,7 @@ router.post('/create/lead',async(req,res)=>{
     const city=req.body.city;
     const country=req.body.country;
     const data=req.body;
-    var data_array=['first_name', 'last_name','company','title','phone','lead_source','email','website','industry','state','rating','postal_code','street','state','city','country','description'];
+    var data_array=['first_name', 'last_name','company','title','phone','lead_source','email','website','industry','state','rating','postal_code','street','state','mobile','fax','city','country','description'];
     data_array.forEach(key =>delete data[key]);
     console.log(data)
     if(lastName==undefined || company==undefined){
@@ -87,4 +86,6 @@ router.post('/create/lead',async(req,res)=>{
     
 })
 
-module.exports = router;
+app.listen(port,()=>{
+  console.log(`App listening at http://localhost:${port}`)
+});
