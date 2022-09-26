@@ -1,20 +1,19 @@
 require('dotenv').config();
-const express=require('express')
+const express = require('express');
+const fs = require('fs');
+const router = express.Router();
+const request = require('request');
 const jsforce = require('jsforce');
-const app=express();
+const e = require('express');
+
+var r={r:200};
 
 const {SF_LOGIN_URL,SF_USERNAME,SF_PASSWORD,SF_TOKEN}=process.env;
-
-    /* Get Connection */
-
 var conn = new jsforce.Connection({
     loginUrl : SF_LOGIN_URL,
     version: '42.0',
     
 });
-
-    /* Login to your account in Salesforce*/
-
 conn.login(SF_USERNAME, SF_PASSWORD+SF_TOKEN, function(err, userInfo) {
   if (err) { return console.error(err); }
   // Now you can get the access token and instance URL information.
@@ -25,33 +24,67 @@ conn.login(SF_USERNAME, SF_PASSWORD+SF_TOKEN, function(err, userInfo) {
   
   console.log("User ID: " + userInfo.id);
   console.log("Org ID: " + userInfo.organizationId);
-
-  createLead();
+  
 });
 
-const lead={
-    FirstName: 'test_fname',
-    LastName: 'test_lname',
-    Company: 'test_cname',
-    Title: 'test_title',
-    LeadSource:'test_source',
-    Email: 'test@gmail.com',
-    Website: 'https://test_website.com',
-    Industry: 'Communications',
-    State:'test_state',
-    Rating: 'Hot',
-    PostalCode:'test_pcode',
-    Street: 'test_street',
-    City:'test_city',
-    Country:'test_country',
-    Description:'test_description'
-}
+router.post('/create/lead',async(req,res)=>{
+    const firstName=req.body.first_name;
+    const lastName=req.body.last_name;
+    const company=req.body.company;
+    const title=req.body.title;
+    const phone=req.body.phone;
+    const mobile=req.body.mobile;
+    const fax=req.body.fax;
+    const leadSource=req.body.lead_source;
+    const email=req.body.email;
+    const website=req.body.website;
+    const industry=req.body.industry;
+    const state=req.body.state;
+    const rating=req.body.rating;
+    const postalCode=req.body.postal_code;
+    const street=req.body.street;
+    const city=req.body.city;
+    const country=req.body.country;
+    const data=req.body;
+    var data_array=['first_name', 'last_name','company','title','phone','lead_source','email','website','industry','state','rating','postal_code','street','state','city','country','description'];
+    data_array.forEach(key =>delete data[key]);
+    console.log(data)
+    if(lastName==undefined || company==undefined){
+        r['r']=0;
+        res.send(JSON.stringify(r));
+    }else{
+        
+        const lead={
+            FirstName: firstName,
+            LastName: lastName,
+            Company: company,
+            Title: title,
+            Phone: phone,
+            Mobile: mobile,
+            Fax: fax,
+            LeadSource:leadSource,
+            Email: email,
+            Website: website,
+            Industry: industry,
+            State: state,
+            Rating: rating,
+            PostalCode: postalCode,
+            Street: street,
+            City: city,
+            Country: country,
+            Description: JSON.stringify(data)
+        }
+         conn.sobject("Lead").create(lead, function(err, ret) {
+             if (err || !ret.success) { return console.error(err, ret); }
+             console.log("Created record id : " + ret.id);
+            
+          });
+          res.send(JSON.stringify(r));
+    
+    }
+    
+    
+    
+})
 
-const createLead=()=>{
-    conn.sobject('Lead').create(lead, function(err, ret) {
-      if (err || !ret.success) { return console.error(err, ret); }
-      console.log("Created record id : " + ret.id);
-      console.log(ret)
-      // ...
-    });
-  }
+module.exports = router;
