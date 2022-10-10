@@ -22,7 +22,7 @@ In profile click Edit Profile, then in Profile Information connect your facebook
 Add neccessary products to your App:  Messenger, Login via Facebook  
 And follow this link and do all steps (https://developers.facebook.com/docs/messenger-platform/instagram/get-started)  
 Before starting I advise to create another facebook account and instagram account for testing your App.  
-You will get your user access token and your page acces token  
+You will get your user access token, page acces token and page_id 
 
 ## 3) Send a message
 
@@ -46,4 +46,5 @@ curl -i -X POST "https://graph.facebook.com/LATEST-API-VERSION/PAGE-ID/messages
 Add a new product called **Webhooks** and let's configure it.
 Click on the Product in Products on the left side of the screen
 And choose Instagram and set your url,verify token. Then subscribe to messages and messages_postbacks
+
 
