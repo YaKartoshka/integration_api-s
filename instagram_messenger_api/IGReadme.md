@@ -6,31 +6,31 @@
 - Access tokens have a limited validity period
 
 ## 1) Create developer account ON Facebook and Instagram professional account
-[Create a facebook developer account](https://developers.facebook.com/docs/development/register/)
+[Create a facebook developer account](https://developers.facebook.com/docs/development/register/)  
 After creating account you have to create your facebook page [Create a page](https://www.facebook.com/pages/?category=your_pages&ref=bookmarks)
 
-Now let's create an Instagram account.(https://www.instagram.com/)
-After creating an Instagram account, you need to go to Settings -> Account -> Add new professional account(switch to professional account)
-Then it is neccesary to make connection between Facebook developer account and your Instagram account.
-Go to (Settings-> Account -> Sharing to other apps ) and choose your facebook account.
+Now let's create an Instagram account.(https://www.instagram.com/)  
+After creating an Instagram account, you need to go to Settings -> Account -> Add new professional account(switch to professional account)  
+Then it is neccesary to make connection between Facebook developer account and your Instagram account.  
+Go to (Settings-> Account -> Sharing to other apps ) and choose your facebook account.  
 In profile click Edit Profile, then in Profile Information connect your facebook page to your instagram account
 
 **Done! You connected your accounts**
 
 ## 2) Get started with Instagram Messenger API
 
-Add neccessary products to your App:  Messenger, Login via Facebook
-And follow this link and do all steps (https://developers.facebook.com/docs/messenger-platform/instagram/get-started)
-Before starting I advise to create another facebook account and instagram account for testing your App.
-You will get your user access token and your page acces token
+Add neccessary products to your App:  Messenger, Login via Facebook  
+And follow this link and do all steps (https://developers.facebook.com/docs/messenger-platform/instagram/get-started)  
+Before starting I advise to create another facebook account and instagram account for testing your App.  
+You will get your user access token and your page acces token  
 
 ## 3) Send a message
 
-By this [link](https://developers.facebook.com/docs/messenger-platform/instagram/features/send-message) You can start conversation. But within the limits of what is allowed
+By this [link](https://developers.facebook.com/docs/messenger-platform/instagram/features/send-message) You can start conversation. But within the limits of what is allowed  
 You can send a free-form message that contains:
 - media files, such as images or videos uploaded to the Meta social graph or from a website;
 - reaction or sticker;
-- text, including links.
+- text, including links.  
 This is a curl post request fro sending a message
 ```
 curl -i -X POST "https://graph.facebook.com/LATEST-API-VERSION/PAGE-ID/messages
