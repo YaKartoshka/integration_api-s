@@ -1,7 +1,7 @@
 # integration_zoho_api
 
 ## Useful links:
-1) REST API Docs(Records)-"https://www.zoho.com/crm/developer/docs/api/v3/get-records.html"
+1)REST API DOCS (https://www.zoho.com/crm/developer/docs/api/v3/modules-api.html)
 2)Zoho CRM-"https://www.zoho.com/crm/"
 3)Register a client for getting access token-"https://www.zoho.com/crm/developer/docs/api/v3/register-client.html"
 
@@ -43,5 +43,5 @@ curl "https://www.zohoapis.com/crm/v3/Leads?fields=Last_Name,Email&per_page=3"
 Instead of "1000.8cb99dxxxxxxxxxxxxx9be93.9b8xxxxxxxxxxxxxxxf" put your access Token
 Fill in fields(Last_name,Email and etc)
 Then make your first post request .
-
+REST API Docs(Records)-"https://www.zoho.com/crm/developer/docs/api/v3/get-records.html"
 
