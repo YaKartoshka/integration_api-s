@@ -7,7 +7,7 @@
 
 ## 1) First step: Create Developer account
  Need to create zoho developer account
-[Create a developer account](https://www.zoho.com/crm/)
+[Create a zoho account](https://www.zoho.com/crm/)
 
 ## 2) Second step: Create a Client to integrate with API
 Follow the link:
