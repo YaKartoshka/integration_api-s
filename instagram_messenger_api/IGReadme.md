@@ -11,6 +11,7 @@ After creating account you have to create your facebook page [Create a page](htt
 
 Now let's create an Instagram account.(https://www.instagram.com/)  
 After creating an Instagram account, you need to go to Settings -> Account -> Add new professional account(switch to professional account)  
+Choose a professional account of author!
 Then it is neccesary to make connection between Facebook developer account and your Instagram account.  
 Go to (Settings-> Account -> Sharing to other apps ) and choose your facebook account.  
 In profile click Edit Profile, then in Profile Information connect your facebook page to your instagram account
