@@ -3,7 +3,9 @@
 ## Limitations
 - Instagram messaging is available for the author's professional account, which has less than 500,000 subscribers.
 - Without extended access, you can write and receive messages from a user only if he has a role in this application
-- Access tokens have a limited validity period
+- Access tokens have a limited validity period  
+- If the interval of your last conversation with the recipient exceeds 24 hours, you will not be able to send messages to him until the sender starts the conversation himself.
+
 
 ## 1) Create developer account ON Facebook and Instagram professional account
 [Create a facebook developer account](https://developers.facebook.com/docs/development/register/)  
