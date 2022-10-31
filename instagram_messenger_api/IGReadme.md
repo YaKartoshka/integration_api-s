@@ -43,8 +43,8 @@ curl -i -X POST "https://graph.facebook.com/LATEST-API-VERSION/PAGE-ID/messages
 **PAGE-ACCESS-TOKEN - you already have got in second step, also you can get page access token on** [Graph API Explorer](https://developers.facebook.com/tools/explorer/)
 
 ## 4)Create a webhook for your Instagram account
-
-Add a new product called **Webhooks** and let's configure it.
+By this [link](https://developers.facebook.com/apps/).  
+Choose your application and then add a new product called **Webhooks** and let's configure it.  
 Click on the Product in Products on the left side of the screen
 And choose Instagram and set your url,verify token. Then subscribe to messages and messages_postbacks
 
