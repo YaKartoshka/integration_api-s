@@ -59,6 +59,18 @@ Run your express app. Your webhook will need to be visible from the internet in 
 ```
 ngrok http 3000
 ```
+Run your express app. Your webhook will need to be visible from the internet in order for Twilio to send requests to it. We will use ngrok for this, which you’ll need to install if you don’t have it. [Dowload ngrok](https://ngrok.com/download). In your terminal run the following command:
+```
+ngrok http 3000
+```
+After that we need to set our webhook to our twilio number. For that follow these steps:
+1) Follow this link: (https://console.twilio.com/)  
+2) Phone Numbers -> Manage -> Buy a number
+3) Buy a number that you would like(not local)
+4) Phone Numbers -> Manage -> Active Numbers and find your purchased number
+5) Click to your twilio number and you will see your configure
+6) Scroll down to the Messaging panel and you will see Webhook input
+7) Set your webhook inside the field "A MESSAGE COMES IN" then save shanges by "save" button.
 
 With webhook running, we’re ready for main part - testing our webhook!
 
