@@ -13,11 +13,8 @@ Link to registration: (https://www.twilio.com/try-twilio)
 ## 2) Second step: Creating your Whatsapp number
 Follow this link: (https://console.twilio.com/us1/develop/sms/try-it-out/whatsapp-learn?frameUrl=%2Fconsole%2Fsms%2Fwhatsapp%2Flearn%3Fx-target-region%3Dus1)
 Then follow all steps and you will get access for using this number.   
-Also there will be place tp put your webhook url.
+Also there will be place to put your webhook url.
 
-```
-npm i twilio
-```
 After that put this code inside a server.js file:
 ```
 const http = require('http');
@@ -52,6 +49,11 @@ http.createServer(app).listen(3000, () => {
   console.log('Express server listening on port 3000');
 });
  ``` 
+ Then make all console commands:
+ 
+```
+npm i twilio express body-parser http
+```
 With req.body we get a request with sender data and you can do anything you want.  
 Run your express app. Your webhook will need to be visible from the internet in order for Twilio to send requests to it. We will use ngrok for this, which you’ll need to install if you don’t have it. [Dowload ngrok](https://ngrok.com/download). In your terminal run the following command:
 ```
