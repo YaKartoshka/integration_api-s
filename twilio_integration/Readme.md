@@ -39,27 +39,29 @@ const app = express();
 app.post('/sms', (req, res) => {
   const twiml = new MessagingResponse();
 
+  // Access the message body and the number it was sent from.
+  console.log(`Incoming message from ${req.body.From}: ${req.body.Body}`);
+
   twiml.message('The Robots are coming! Head for the hills!');
 
-  res.type('text/xml').send(twiml.toString());
+  res.writeHead(200, {'Content-Type': 'text/xml'});
+  res.end(twiml.toString());
 });
 
 app.listen(3000, () => {
   console.log('Express server listening on port 3000');
 });
  ``` 
-Then we have to install Twilio CLI to connect webhook to the twilio number
+Your webhook will need to be visible from the internet in order for Twilio to send requests to it. We will use ngrok for this, which you’ll need to install if you don’t have it. In your terminal run the following command:
 ```
-npm install -g twilio-cli
+ngrok http 3000
 ```
-After that run this to login:
-```
-twilio login
-```
-Then run this for connection between number and webhook:
-```
-twilio phone-numbers:update "your_number" --sms-url="http://localhost:1337/sms"
-```
-Make sure that you run both of them(webhook,twilio command)  
-With both of those servers running, we’re ready for the fun part - testing our new Express application!
+After that we need to set our webhook to our twilio number. For that follow these steps:
+1) Follow this link: (https://console.twilio.com/)  
+2) Phone Numbers -> Manage -> Active Numbers
+3) Click to your twilio number and you will see your configure
+4) Scroll down to the Messaging panel and you will see Webhook input
+5) Set your webhook inside the field "A MESSAGE COMES IN" then save shanges by "save" button.
+
+With webhook running, we’re ready for main part - testing our webhook!
 
