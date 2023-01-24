@@ -58,10 +58,12 @@ ngrok http 3000
 ```
 After that we need to set our webhook to our twilio number. For that follow these steps:
 1) Follow this link: (https://console.twilio.com/)  
-2) Phone Numbers -> Manage -> Active Numbers
-3) Click to your twilio number and you will see your configure
-4) Scroll down to the Messaging panel and you will see Webhook input
-5) Set your webhook inside the field "A MESSAGE COMES IN" then save shanges by "save" button.
+2) Phone Numbers -> Manage -> Buy a number
+3) Buy a number that you would like(not local)
+4) Phone Numbers -> Manage -> Active Numbers and find your purchased number
+5) Click to your twilio number and you will see your configure
+6) Scroll down to the Messaging panel and you will see Webhook input
+7) Set your webhook inside the field "A MESSAGE COMES IN" then save shanges by "save" button.
 
 With webhook running, we’re ready for main part - testing our webhook!
 
