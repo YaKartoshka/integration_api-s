@@ -1,8 +1,9 @@
 # Twilio Integration with Node.js 
 
 ## Useful_links
-1) Quick start with Node.js (https://www.twilio.com/docs/sms/quickstart/node) 
-2) Messages API (https://www.twilio.com/docs/sms/api/message-resource) 
+1) [Quick start with Node.js ](https://www.twilio.com/docs/sms/quickstart/node) 
+2) [Messages API] (https://www.twilio.com/docs/sms/api/message-resource) 
+
  
  
 ## 1) First step: Create account on Twilio
@@ -52,7 +53,7 @@ app.listen(3000, () => {
   console.log('Express server listening on port 3000');
 });
  ``` 
-Your webhook will need to be visible from the internet in order for Twilio to send requests to it. We will use ngrok for this, which you’ll need to install if you don’t have it. In your terminal run the following command:
+Your webhook will need to be visible from the internet in order for Twilio to send requests to it. We will use ngrok for this, which you’ll need to install if you don’t have it. [Dowload ngrok](https://ngrok.com/download). In your terminal run the following command:
 ```
 ngrok http 3000
 ```
