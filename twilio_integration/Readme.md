@@ -64,7 +64,7 @@ app.listen(port, () => {
     console.log('App is listenint at host: http://localhost:3000')
 })
  ``` 
- req.body - all data of the received message
+ req.body - all data of the received message  
  req.body.Body - only received message text
 
  Then make all console commands:
