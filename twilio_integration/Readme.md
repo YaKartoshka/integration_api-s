@@ -4,50 +4,59 @@
 1) [Quick start with Node.js ](https://www.twilio.com/docs/whatsapp/quickstart/node) 
 2) [Messages API](https://www.twilio.com/docs/sms/api/message-resource) 
 3) [Parsing an Incoming Twilio SMS Webhook with Node.js](https://www.twilio.com/blog/parsing-an-incoming-twilio-sms-webhook-with-node-js)
- 
+
  
 ## 1) First step: Create account on Twilio
 After sign up, you will get your account_sid, twilio_number and auth_token. All of them are neccesseary to make out REST API
 Link to registration: (https://www.twilio.com/try-twilio)
 
-## 2) Second step: Creating your Whatsapp number
+## 2) Second step: Creating your twilio number
 Follow this link: (https://console.twilio.com/us1/develop/sms/try-it-out/whatsapp-learn?frameUrl=%2Fconsole%2Fsms%2Fwhatsapp%2Flearn%3Fx-target-region%3Dus1)
 Then follow all steps and you will get access for using this number.   
 Also there will be place to put your webhook url.
 
 After that put this code inside a server.js file:
 ```
-const http = require('http');
 const express = require('express');
-const { urlencoded } = require('body-parser');
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
+const accountSid="ACa81a3237d7d5dd2d354d5bae5750d1c0"
+const authToken="13456d42cfc6bfcb1474332cf6b2938e"
+const bodyParser=require('body-parser')
+const client = require('twilio')(accountSid, authToken);
 
 const app = express();
-app.use(urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+const port = process.env.PORT || 3000;
 
-app.get('/',(req,res)=>{
-  res.send("hello")
+app.get('/', async (req, res) => {
+    console.log("get", req);
+    client.messages 
+      .create({ 
+        body: 'Thank you for submitting your order. To finalize your payment, please tap below to call or visit our website.',
+        from: 'whatsapp:+14155238886',  
+        ButtonText:'hello',     
+         to: 'whatsapp:+77779537464' 
+       }) 
+      .then(message => console.log(message.sid)) 
+      .done();
+
+    res.send('hello')
+});
+
+app.post('/sms', (req, res) => {
+  console.log("post",req.body);
+ 
+  const response = new MessagingResponse();
+
+  response.message('The Robots are coming! Head for the hills!');
+  res.set("Content-Type", "application/xml");
+  res.send(response.toString());
+});
+
+app.listen(port, () => {
+    console.log('App is listenint at host: http://localhost:3000')
 })
-
-app.post('/', (req, res) => {
-  const twiml = new MessagingResponse();
-
-  if (req.body.Body == 'hello') {
-    twiml.message('Hi!');
-  } else if (req.body.Body == 'bye') {
-    twiml.message('Goodbye');
-  } else {
-    twiml.message(
-      'No Body param match, Twilio sends this in the request to your server.'
-    );
-  }
-
-  res.type('text/xml').send(twiml.toString());
-});
-
-http.createServer(app).listen(3000, () => {
-  console.log('Express server listening on port 3000');
-});
  ``` 
  Then make all console commands:
  
