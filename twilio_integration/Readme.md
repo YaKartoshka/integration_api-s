@@ -16,6 +16,7 @@ Link to registration: (https://www.twilio.com/try-twilio)
 When you signed in you will get your first twilio number for your goals. After that you should create your own Messaging service 
 Follow this link: https://console.twilio.com/us1/develop/sms/try-it-out/get-set-up?frameUrl=%2Fconsole%2Fsms%2Fget-setup%3Fx-target-region%3Dus1  
 Then try to send your message from your twilio number to your current phone number which was used for registration.  
+If you want to send a message to another phone number you need to add this number in Verified Caller IDs  
 But It was just free trial and we should upgrade our account to get rid of limitations. 
 Follow this link: [Upgrade](https://console.twilio.com/us1/billing/manage-billing/billing-overview?frameUrl=%2Fconsole%2Fbilling%3Fx-target-region%3Dus1) -> Billing -> Upgrade  
 After upgrading we need enable geo permissions in everywhere by this [link](https://console.twilio.com/us1/develop/sms/settings/geo-permissions)
