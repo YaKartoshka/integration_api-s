@@ -51,7 +51,7 @@ app.get('/', async (req, res) => {
 });
 
 app.post('/sms', (req, res) => {
-  console.log("post",req.body);
+  console.log("post",req.body.Body);
  
   const response = new MessagingResponse();
 
@@ -64,6 +64,9 @@ app.listen(port, () => {
     console.log('App is listenint at host: http://localhost:3000')
 })
  ``` 
+ req.body - all data of the received message
+ req.body.Body - only received message text
+
  Then make all console commands:
  
 ```
@@ -91,5 +94,5 @@ If you don't have the twilio number ->
 5) Click to your twilio number and you will see your configure
 6) Scroll down to the Messaging panel and you will see Webhook input
 7) Set your webhook inside the field "A MESSAGE COMES IN" then save shanges by "save" button.
+  
 With webhook running, we’re ready for main part - testing our webhook!
-
