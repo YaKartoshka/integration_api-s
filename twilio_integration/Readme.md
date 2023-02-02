@@ -39,12 +39,11 @@ const port = process.env.PORT || 3000;
 app.get('/', async (req, res) => {
     console.log("get", req);
     client.messages 
-      .create({ 
-        body: 'Thank you for submitting your order. To finalize your payment, please tap below to call or visit our website.',
-        from: 'whatsapp:+14155238886',  
-        ButtonText:'hello',     
-         to: 'whatsapp:+77779537464' 
-       }) 
+     .create({
+     body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
+     from: '+15017122661',
+     to: '+15558675310'
+     })
       .then(message => console.log(message.sid)) 
       .done();
 
