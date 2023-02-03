@@ -9,7 +9,6 @@
 ## 1) First step: Create account on Twilio
 After sign up, you will get your account_sid, twilio_number and auth_token. All of them are neccesseary to make out REST API
 Link to registration: (https://www.twilio.com/try-twilio)
-
 ## 2) Second step: Creating your Whatsapp number
 Follow this link: (https://console.twilio.com/us1/develop/sms/try-it-out/whatsapp-learn?frameUrl=%2Fconsole%2Fsms%2Fwhatsapp%2Flearn%3Fx-target-region%3Dus1)
 Then follow all steps and you will get access for using this number.   
@@ -26,6 +25,13 @@ const app = express();
 app.use(urlencoded({ extended: false }));
 
 app.get('/',(req,res)=>{
+    client.messages
+      .create({
+         from: 'whatsapp:+14155238886',
+         body: 'Hello there!',
+         to: 'whatsapp:+15005550006'
+       })
+      .then(message => console.log(message.sid));
   res.send("hello")
 })
 
