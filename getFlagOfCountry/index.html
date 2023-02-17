@@ -18,7 +18,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Getting Clients IP</title>
+    <title>Getting Client Flag</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   </head>
@@ -32,8 +32,8 @@
       var country_code = "";
       $.getJSON("https://api.ipify.org?format=json", function (data) {
      
-        var ip = "45.86.82.147";
-
+        var ip = "45.86.82.147"; // Kazakhstan
+        // var ip = "42.86.82.127"; China
         $.ajax({
           url: "/getCountry",
           data: { ip: ip },
