@@ -1,0 +1,53 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <img src="" alt="" id="flag">    
+
+
+    <img src="https://ipdata.co/flags/gb.png" alt="US Flag">
+    <script src="script.js"></script>
+
+</body>
+</html> -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Getting Clients IP</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  </head>
+
+  <body>
+    <p id="gfg"></p>
+
+    <img src="" alt="" id="flag">
+
+
+
+    <script>
+      var country_code = "";
+      $.getJSON("https://api.ipify.org?format=json", function (data) {
+        // Setting text of element P with id gfg
+        var ip = "45.86.82.147";
+
+        $.ajax({
+          url: "/getCountry",
+          data: { ip: ip },
+          type: "post",
+          dataType: "json",
+          success: function (res) {
+            $("#gfg").html(res.country_data.country);
+            country_code = res.country_data.country.toLowerCase();
+            $("#flag").attr("src",`https://ipdata.co/flags/${country_code}.png`)
+          },
+        });
+      });
+    </script>
+  </body>
+</html>
