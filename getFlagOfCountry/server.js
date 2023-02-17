@@ -16,7 +16,6 @@ app.get('/', (req,res)=>{
 
 app.post("/getCountry", async (req, res) => {
     const ip = req.body.ip
-    console.log(ip)
     const country = lookup(ip);
     data['country_data'] = country;
     res.send(data);

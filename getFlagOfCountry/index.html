@@ -26,14 +26,12 @@
   <body>
     <p id="gfg"></p>
 
-    <img src="" alt="" id="flag">
-
-
+    <img src="" alt="" id="flag" />
 
     <script>
       var country_code = "";
       $.getJSON("https://api.ipify.org?format=json", function (data) {
-        // Setting text of element P with id gfg
+     
         var ip = "45.86.82.147";
 
         $.ajax({
@@ -44,7 +42,10 @@
           success: function (res) {
             $("#gfg").html(res.country_data.country);
             country_code = res.country_data.country.toLowerCase();
-            $("#flag").attr("src",`https://ipdata.co/flags/${country_code}.png`)
+            $("#flag").attr(
+              "src",
+              `https://ipdata.co/flags/${country_code}.png`
+            );
           },
         });
       });
