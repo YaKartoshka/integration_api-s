@@ -29,7 +29,7 @@
     <img src="" alt="" id="flag" />
 
     <script>
-      var country_code = "";
+      var country = "";
       $.getJSON("https://api.ipify.org?format=json", function (data) {
      
         var ip = "45.86.82.147"; // Kazakhstan
@@ -40,11 +40,11 @@
           type: "post",
           dataType: "json",
           success: function (res) {
-            $("#gfg").html(res.country_data.country);
-            country_code = res.country_data.country.toLowerCase();
+            country=res.country.toLowerCase()
+            console.log(res)
             $("#flag").attr(
               "src",
-              `https://ipdata.co/flags/${country_code}.png`
+              `flags/${country}.png`
             );
           },
         });

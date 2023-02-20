@@ -2,6 +2,7 @@ const express = require("express");
 const MessagingResponse = require("twilio").twiml.MessagingResponse;
 const accountSid = "ACa81a3237d7d5dd2d354d5bae5750d1c0";
 const { lookup } = require('geoip-lite');
+const request=require('request')
 const path = require('path')
 const bodyParser = require("body-parser");
 var data={}
@@ -16,10 +17,20 @@ app.get('/', (req,res)=>{
 
 app.post("/getCountry", async (req, res) => {
     const ip = req.body.ip
-    const country = lookup(ip);
-    data['country_data'] = country;
-    res.send(data);
+    
+    var country_data=lookup(ip)
+    var country_code=country_data.country.toLowerCase();
+    res.send(country_data)
+      // `https://ipdata.co/flags/${country_code}.png`
+   
 });
+
+app.get('/flags/:code',(req,res)=>{
+  const code = req.params.code
+  res.sendFile(path.join(__dirname+`/flags/${code}`))
+
+
+})
 
 app.listen(port, () => {
   console.log("App is listening at host: http://localhost:3000");
