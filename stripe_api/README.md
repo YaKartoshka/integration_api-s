@@ -40,7 +40,7 @@ app.post("/add_customer", async (req, res) => {
     email: email,
   }); 
   
-  if (customers.data[0] != undefined) { // We are checking that customer with such email does not exists
+  if (customers.data[0] != undefined) { // We are checking that customer with such email does not exist
     console.log('Such customer already exists') 
   } else {
     const customer = await stripe.customers.create(
