@@ -3,7 +3,7 @@
 ## Useful links:
 1. [Stripe API DOCS](https://stripe.com/docs/api)
 2. [Stripe test bank cards](https://stripe.com/docs/testing#cards)
-3. 
+
 
 ## First step: Create a stripe account
 Follow this [link](https://stripe.com/) then create your account.  
