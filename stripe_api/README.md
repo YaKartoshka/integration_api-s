@@ -10,7 +10,7 @@ Follow this [link](https://stripe.com/) then create your account.
 After that you will be redirected to your own dashboard where you can get your secret_key and other api keys.  
 By clicking Developers -> API keys - you will find your keys.
 
-##Second step: Set up your node.js server
+## Second step: Set up your node.js server
 Create your simple express app and after that install this dependency:
 ```
 npm i stripe
@@ -21,7 +21,7 @@ const stripe = require("stripe")(
   "your secret key");
 ```
 Now you can use stripe api for your goals.
-##Third step: Sample of creating customers
+## Third step: Sample of creating customers
 ```
 app.post("/add_customer", async (req, res) => {
   const email = req.body.email;
