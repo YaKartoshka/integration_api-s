@@ -6,13 +6,14 @@ const stripe = require("stripe")(
 );
 //You can get your secret key after registration  and you should move to this link: https://dashboard.stripe.com/test/apikeys
 const path = require("path");
-app.use(express.static("public"));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
 app.use(bodyParser.json());
 var r = {};
 
+app.use("/stripe_api", express.static(__dirname));
+app.use("/public", express.static(__dirname + "/stripe_api"));
+app.use("/public", express.static(__dirname + "/public"));
 app.get("/", async (req, res) => {
   res.sendFile(path.join(__dirname, "public/customer.html"));
 });

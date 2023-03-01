@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node getFlagOfCountry/server.js"
+    "start": "node stripe_api/server.js"
   },
   "keywords": [],
   "author": "",
