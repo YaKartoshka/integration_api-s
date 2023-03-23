@@ -5,7 +5,7 @@ const { lookup } = require('geoip-lite');
 const request=require('request')
 const path = require('path')
 const bodyParser = require("body-parser");
-app.use("/public", express.static(__dirname + "/public"));
+
 var data={}
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
