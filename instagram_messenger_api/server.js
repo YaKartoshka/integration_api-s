@@ -37,14 +37,11 @@ app.post('/configure_webhook',(req,res)=>{
 
 app.post("/webhook", async(req, res) => {
   
-
-
-  
   let body = req.body;
   let recipient=body.entry[0].messaging[0].sender.id
   console.log(req.body)
   console.log(req.body.entry[0].messaging[0])
- 
+  console.log(page_id + " " + access_token )
     
     var options = {
       'method': 'POST',
