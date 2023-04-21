@@ -9,17 +9,24 @@
   </head>
   <body>
 
-
-    <fb:login-button
-      scope="public_profile, email, instagram_basic, pages_show_list, pages_messaging, instagram_manage_messages, pages_manage_metadata"
+    <div class="container m-5">
+      <fb:login-button scope="public_profile, email, instagram_basic, pages_show_list, pages_messaging, instagram_manage_messages, pages_manage_metadata"
       onlogin="checkLoginState();"
     >
     </fb:login-button>
+    <br>
 
-    <button type="button" onclick="setWebhook()"  class="btn btn-primary">Set Webhook</button>
+    <button type="button" onclick="setWebhook()"  class="btn btn-primary mt-3">Set Webhook</button>
 
+    <form>
+      <label for="email" class="form-label">Type a message:</label>
+      <input type="text" class="form-control" id="msg" placeholder="Enter message" name="email">
+      <button type="send" onclick="sendMsg()" class="btn btn-primary mt-2">Send</button>
+    </form>
 
+    </div>
 
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -73,7 +80,7 @@
             console.log(res)
 
             },error(e){
-            alert("Error");
+         
             }
         })
     }
@@ -82,6 +89,23 @@
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
         if (parts.length === 2) return parts.pop().split(';').shift();
+      }
+
+      function sendMsg(){
+        var msg=document.getElementById("msg").value;
+
+        $.ajax({
+          url: "/send_message",
+          data: {msg:msg },
+          type: "post",
+          dataType: "json",
+          success: function (res) {
+            console.log(res)
+
+            },error(e){
+          
+            }
+        })
       }
     </script>
   </body>

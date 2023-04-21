@@ -19,6 +19,7 @@ app.get('/',(req,res)=>{
 var user_token;
 var page_id;
 var access_token;
+var last_recipient;
 app.post('/configure_webhook',(req,res)=>{
   user_token=req.body.user_token
   console.log(user_token)
@@ -39,20 +40,21 @@ app.post("/webhook", async(req, res) => {
   
   let body = req.body;
   let recipient=body.entry[0].messaging[0].sender.id
-  console.log(req.body)
+  last_recipient=recipient;
   console.log(req.body.entry[0].messaging[0])
   console.log(page_id + " " + access_token )
-    
+  var hello="hello";   
     var options = {
       'method': 'POST',
-      'url': `https://graph.facebook.com/v16.0/${page_id}/messages?recipient={id: ${recipient}}&message={text: "hello"}&access_token=${access_token}`,
+      'url': `https://graph.facebook.com/v16.0/${page_id}/messages?recipient={id: "${recipient}"}&message={text: "${hello}"}&access_token=${access_token}`,
       'headers': {
       }
     };
     request(options, function (error, response) {
       if (error) throw new Error(error);
-      console.log(response.body);
+     
     }); 
+   
     res.end()
     
 
@@ -79,4 +81,25 @@ app.get("/webhook", (req, res) => {
       res.sendStatus(403);
     }
   }
+});
+
+app.post('/send_message', (req,res)=>{
+  const msg = req.body.msg;
+  console.log(msg, last_recipient)
+  console.log(page_id + " " + access_token )
+    
+  var hello="hey";   
+  var options = {
+    'method': 'POST',
+    'url': `https://graph.facebook.com/v16.0/${page_id}/messages?recipient={id: "9606694469372915"}&message={text: "${msg}"}&access_token=${access_token}`,
+    'headers': {
+    }
+  };
+  request(options, function (error, response) {
+    if (error) throw new Error(error);
+   
+  }); 
+    res.sendStatus(200)
+    
+
 });
