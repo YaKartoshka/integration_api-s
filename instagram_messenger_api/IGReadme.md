@@ -26,7 +26,7 @@ Also make sure that you enabled Access to messages. For checking that navigate t
 Add neccessary products to your App:  Messenger, Login via Facebook  
 And follow this link and do all steps (https://developers.facebook.com/docs/messenger-platform/instagram/get-started)  
 Before starting I advise to create another facebook account and instagram account for testing your App.  
-You will get your user access token, page acces token and page_id 
+You will get your user access token, page access token and page_id 
 
 ## 3) Set a webhook
 To create a webhook you shound navigate to Application panel and add **Webhooks**.  
