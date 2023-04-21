@@ -16,7 +16,7 @@
     </fb:login-button>
     <br>
 
-    <button type="button" onclick="setWebhook()"  class="btn btn-primary mt-3">Set Webhook</button>
+    <button type="button" onclick="setWebhook()" id="set_webhook" class="btn btn-primary mt-3 disabled ">Set Webhook</button>
 
     <form>
       <label for="email" class="form-label">Type a message:</label>
@@ -60,6 +60,7 @@
         statusChangeCallback(response);
       });
       function checkLoginState() {
+        document.getElementById('set_webhook').classList.remove('disabled')
         FB.getLoginStatus(function (response) {
           var fd_data= window.sessionStorage.getItem('fbssls_1364158507769894')
           var user_token=JSON.parse(fd_data).authResponse.accessToken
