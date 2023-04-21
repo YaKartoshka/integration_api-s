@@ -16,8 +16,9 @@ After creating an Instagram account, you need to go to Settings -> Account -> Ad
 Choose a professional account of author!
 Then it is neccesary to make connection between Facebook developer account and your Instagram account.  
 Go to (Settings-> Account -> Sharing to other apps ) and choose your facebook account.  
-In profile click Edit Profile, then in Profile Information connect your facebook page to your instagram account
-
+In profile click Edit Profile, then in Profile Information connect your facebook page to your instagram account  
+If you did all steps right in Profile information your facebook page will be displayed.  
+Also make sure that you enabled Access to messages. For checking that navigate to Settings -> Privacy -> Messages and in the bottom you will see that option. Enable it  
 **Done! You connected your accounts**
 
 ## 2) Get started with Instagram Messenger API
@@ -25,9 +26,19 @@ In profile click Edit Profile, then in Profile Information connect your facebook
 Add neccessary products to your App:  Messenger, Login via Facebook  
 And follow this link and do all steps (https://developers.facebook.com/docs/messenger-platform/instagram/get-started)  
 Before starting I advise to create another facebook account and instagram account for testing your App.  
-You will get your user access token, page acces token and page_id 
+You will get your user access token, page access token and page_id 
 
-## 3) Send a message
+## 3) Set a webhook
+To create a webhook you shound navigate to Application panel and add **Webhooks**.  
+Webhooks is neccessary to receive and send messages.  
+After setting Webhooks on the left side click on Webhooks then you should subscribe to messages and messaging_postbacks. Then you should add your webhook link in this panel. For this click Edit subscription put your url and access token. Example of the webhook provided in server.js
+Your configuration should looks like:  
+URL: https://your_webhook_name/webhook  
+Access token: secret123  
+Before clicking save button make sure that you webhook is running otherwise you will get errors.  
+If everything was correct in your server console where webhook is running you will get the message such as WEBHOOK_VERIFIED   
+In my server.js already provided sample of webhook that will auto reply to incoming messages.  
+## 4) Send a message
 
 By this [link](https://developers.facebook.com/docs/messenger-platform/instagram/features/send-message) You can start conversation. But within the limits of what is allowed  
 You can send a free-form message that contains:
@@ -41,14 +52,9 @@ curl -i -X POST "https://graph.facebook.com/LATEST-API-VERSION/PAGE-ID/messages
   &message={text: TEXT-OR-LINK}
   &access_token=PAGE-ACCESS-TOKEN" 
 ```
-**IGSID - Instagram sender id**  
+**IGSID - Instagram sender id** - you can get this only when webhook capture the message 
 **PAGE-ACCESS-TOKEN - you already have got in second step, also you can get page access token on** [Graph API Explorer](https://developers.facebook.com/tools/explorer/)
 
-## 4)Create a webhook for your Instagram account
-By this [link](https://developers.facebook.com/apps/).  
-Choose your application and then add a new product called **Webhooks** and let's configure it.  
-Click on the Product in Products on the left side of the screen
-And choose Instagram and set your url,verify token. Then subscribe to messages and messages_postbacks
 
 ## Useful links
 - [All functions of the Instagram messenger platform](https://developers.facebook.com/docs/messenger-platform/instagram/features)  
