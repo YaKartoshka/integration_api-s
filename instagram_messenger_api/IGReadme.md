@@ -17,7 +17,8 @@ Choose a professional account of author!
 Then it is neccesary to make connection between Facebook developer account and your Instagram account.  
 Go to (Settings-> Account -> Sharing to other apps ) and choose your facebook account.  
 In profile click Edit Profile, then in Profile Information connect your facebook page to your instagram account
-
+If you did all steps right in Profile information your facebook page will be displayed.
+Also make sure that you enabled Access to messages. For checking that navigate to Settings -> Privacy -> Messages and in the bottom you will see that option. Enable it
 **Done! You connected your accounts**
 
 ## 2) Get started with Instagram Messenger API
