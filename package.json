@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node text-extractor/server.js",
-    "start-dev": "nodemon text-extractor/server.js"
+    "start-dev": "nodemon instagram_messenger_api/server.js"
   },
   "keywords": [],
   "author": "",

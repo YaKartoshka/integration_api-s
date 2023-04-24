@@ -44,16 +44,48 @@ app.post("/webhook", async(req, res) => {
   console.log(req.body.entry[0].messaging[0])
   console.log(page_id + " " + access_token )
   var hello="hello";   
-    var options = {
-      'method': 'POST',
-      'url': `https://graph.facebook.com/v16.0/${page_id}/messages?recipient={id: "${recipient}"}&message={text: "${hello}"}&access_token=${access_token}`,
-      'headers': {
+  var options = {
+    'method': 'POST',
+    'url': `https://graph.facebook.com/v16.0/${page_id}/messages?access_token=${access_token}`,
+    'headers': {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      "recipient": {
+        "id": `${recipient}`
+      },
+      "message": {
+        "attachment": {
+          "type": "template",
+          "payload": {
+            "template_type": "generic",
+            "elements": [
+              {
+                "title": "Welcome!",
+                "subtitle": "We have the right hat for everyone.",
+                "buttons": [
+                  {
+                    "type": "postback",
+                    "title": "View Website 123 tset awdl alwd dalwdsd lld awd mlsd amwlds dmawldm",
+                    "payload": "DEVELOPER_DEFINED_PAYLOAD"
+                  },
+                  {
+                    "type": "postback",
+                    "title": "Start Chatting",
+                    "payload": "DEVELOPER_DEFINED_PAYLOAD"
+                  }
+                ]
+              }
+            ]
+          }
+        }
       }
-    };
-    request(options, function (error, response) {
-      if (error) throw new Error(error);
-     
-    }); 
+    })
+  };
+  request(options, function (error, response) {
+    if (error) throw new Error(error);
+   
+  }); 
    
     res.end()
     
@@ -91,9 +123,17 @@ app.post('/send_message', (req,res)=>{
   var hello="hey";   
   var options = {
     'method': 'POST',
-    'url': `https://graph.facebook.com/v16.0/${page_id}/messages?recipient={id: "9606694469372915"}&message={text: "${msg}"}&access_token=${access_token}`,
+    'url': `https://graph.facebook.com/v16.0/${page_id}/messages?access_token=${access_token}`,
     'headers': {
-    }
+    },
+    body: JSON.stringify({
+      "recipient": {
+        "id": `${last_recipient}`
+      },
+      "message": {
+       "text": hello,
+      }
+    })
   };
   request(options, function (error, response) {
     if (error) throw new Error(error);
