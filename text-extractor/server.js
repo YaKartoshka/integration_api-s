@@ -1,14 +1,10 @@
 const express = require("express");
-const MessagingResponse = require("twilio").twiml.MessagingResponse;
-const accountSid = "ACa81a3237d7d5dd2d354d5bae5750d1c0";
-const { lookup } = require('geoip-lite');
-const request=require('request')
+
 const path = require('path')
 const bodyParser = require("body-parser");
 const textract = require('textract');
 const multer = require('multer');
 const fs=require('fs')
-const moment=require('moment');
 const cookieParser = require("cookie-parser");
 
 const app = express();
@@ -24,7 +20,7 @@ const multer_storage=multer.diskStorage({
         cb(null,'./text-extractor/files')
     },
     filename(req,file,cb){
-        const date = moment().format('DDMMYYYY-HHmmss SSS')
+   
         cb(null, `${file.originalname}`)
     }
 })
