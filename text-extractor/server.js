@@ -53,7 +53,7 @@ app.post('/extractText', upload.single('input_file'),(req,res)=>{
         res.redirect('back')
         fs.unlink(`${input_file.path}`, (err) => { // Delete file after extracting teext
             if (err) throw err;
-            console.log('path/file.txt was deleted');
+            console.log('deleted');
           });
     })
     
