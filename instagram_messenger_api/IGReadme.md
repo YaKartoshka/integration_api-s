@@ -31,7 +31,7 @@ You will get your user access token, page access token and page_id
 ## 3) Set a webhook
 To create a webhook you shound navigate to Application panel and add **Webhooks**.  
 Webhooks is neccessary to receive and send messages.  
-After setting Webhooks on the left side click on Webhooks then you should subscribe to messages and messaging_postbacks. Then you should add your webhook link in this panel. For this click Edit subscription put your url and access token. Example of the webhook provided in server.js
+After setting Webhooks on the left side click on Webhooks then you should choose Instagram section instead of User and subscribe to messages and messaging_postbacks. Then you should add your webhook link in this panel. For this click Edit subscription put your url and access token. Example of the webhook provided in server.js
 Your configuration should looks like:  
 URL: https://your_webhook_name/webhook  
 Access token: secret123  
