@@ -23,10 +23,10 @@ const searchDoc=async()=>{
     index.search('CSGO').then(({ hits }) => {
         console.log(hits);
         
-    //     objectIDs.concat(hits)
-    //    hits.forEach(data => {
-    //     index.deleteObject(data.objectID)
-    //    });
+        objectIDs.concat(hits)
+       hits.forEach(data => {
+        index.deleteObject(data.objectID)
+       });
       });
    
 }
