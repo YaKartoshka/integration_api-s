@@ -5,17 +5,19 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node pdf_extractor/server.js",
-    "start-dev": "nodemon pdf_extractor/server.js"
+    "start": "node googleTranslateAPI/server.js",
+    "start-dev": "nodemon googleTranslateAPI/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@vitalets/google-translate-api": "^9.2.0",
     "@zohocrm/nodejs-sdk-2.0": "^6.0.0",
     "algoliasearch": "^4.17.0",
     "axios": "^1.3.3",
     "body-parser": "^1.20.1",
+    "cheerio": "^1.0.0-rc.12",
     "cloudmersive-convert-api-client": "^2.7.4",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.2",
@@ -24,6 +26,7 @@
     "extract-text": "^1.1.3",
     "fs": "^0.0.1-security",
     "geoip-lite": "^1.4.7",
+    "google-translate-api": "^2.3.0",
     "jsforce": "^1.11.0",
     "moment": "^2.29.4",
     "multer": "^1.4.5-lts.1",
