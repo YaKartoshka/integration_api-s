@@ -43,7 +43,7 @@ app.post("/webhook", async(req, res) => {
   last_recipient=recipient;
   console.log(req.body.entry[0].messaging[0])
   console.log(page_id + " " + access_token )
-  var hello="hello";   
+
   var options = {
     'method': 'POST',
     'url': `https://graph.facebook.com/v16.0/${page_id}/messages?access_token=${access_token}`,
