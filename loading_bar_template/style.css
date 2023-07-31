@@ -16,10 +16,11 @@ body{
     width: 300px;
     height: 300px;
 
-    box-shadow: 0 0 2px blue;
 }
 
 #loading{
+    margin-top: 10px;
     display: block;
-    margin: auto auto;
+    margin: auto;
+   
 }
