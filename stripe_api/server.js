@@ -62,7 +62,7 @@ app.post("/add_payment_method", async (req, res) => {
   );
   
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: 0100,
+    amount: 1,
     currency: 'usd',
     customer: cid,
     payment_method: card_id,
@@ -122,6 +122,7 @@ app.post("/add_customer", async (req, res) => {
 
   if (customers.data[0] != undefined) {
     r["r"] = 2;
+    console.log(customers.data[0].id)
     res.send(JSON.stringify(r));
   } else {
     const customer = await stripe.customers.create(
@@ -129,6 +130,7 @@ app.post("/add_customer", async (req, res) => {
       (err, customer) => {
         if (err) {
           r["r"] = 0;
+          console.log(customer)
           res.send(JSON.stringify(r));
         } else {
           r["r"] = 1;

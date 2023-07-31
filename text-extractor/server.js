@@ -7,7 +7,7 @@ const multer = require('multer');
 const fs = require('fs')
 const cookieParser = require("cookie-parser");
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -41,9 +41,15 @@ var data = {
 }
 
 app.get('/', (req, res) => {
+    console.log(req)
     res.render('index', {
         data: data
     })
+})
+
+app.get('/test', (req,res)=>{
+    console.log(req)
+    res.redirect('back')
 })
 
 app.post('/extractText', upload.single('input_file'), (req, res) => {
@@ -51,8 +57,8 @@ app.post('/extractText', upload.single('input_file'), (req, res) => {
     console.log(input_file)
     textract.fromFileWithPath(`${input_file.path}`, function (error, text) {
         data['text'] = text
-        console.log(data)
-        res.redirect('back')
+        
+        res.send(data)
         
         fs.unlink(`${input_file.path}`, (err) => { // Delete file after extracting teext
             if (err) throw err;
@@ -64,5 +70,5 @@ app.post('/extractText', upload.single('input_file'), (req, res) => {
 })
 
 app.listen(port, () => {
-    console.log("App is listening at host: http://localhost:3000");
+    console.log("App is listening at host: http://localhost:3001");
 });

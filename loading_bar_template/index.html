@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+   
+
+    <div class="container" id="main">
+        <div id="block">
+            <button onclick="fetchData()">Fetch Data</button>
+        </div>
+
+    </div>
+
+    <script>
+        function loading(html_id) {
+            $(`#${html_id}`).html('<img src="loading2.gif" id="loading" width="150">');
+            
+        }
+
+        function fetchData() {
+            loading('block')
+            $.ajax({url: 'https://dummyjson.com/comments', success: function(res){
+                
+                $(`#block`).html('Data: ' + res.comments[0].body)
+            }})
+        
+        }
+
+
+    </script>
+</body>
+
+</html>
