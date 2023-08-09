@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <style>
+        #chat {
+            width: 500px;
+            min-height: 200px;
+            border-radius: 20px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-4 d-flex flex-column align-items-xl-center">
+        <h3>Prompt:</h3>
+        <textarea name="text_field" class="form-control w-50" id="text_field" cols="50" rows="5"></textarea>
+        <button class="btn btn-primary mt-3" onclick="sendMessage()" style="width: 200px;">Send message</button>
+    </div>
+    <div class="container bg-dark text-light p-4" id="chat">
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        let messages = [
+            {"role":"assistant", "content":"Hi, would you like to fill the application form or check your order status?"}
+        ]
+
+        function sendMessage() {
+            let content = document.getElementById("text_field").value;
+            let role = 'user';
+            $("#text_field").val('')
+            var message = {
+                "role": role,
+                "content": content
+            };
+
+            messages.push(message);
+
+            console.log(messages);
+
+
+            $('#chat').append(`<div class="user">User: ${message.content}</div>`)
+
+            $.ajax({
+                url: '/send_message',
+                method: 'POST',  // Adjust the HTTP method as needed
+                data: JSON.stringify(messages),
+                contentType: 'application/json',
+                success: function (response) {
+                    console.log(response)
+                    let data = JSON.parse(response);
+                    let message = data.choices[0].message;
+                    messages.push(message);
+
+
+                    if(message.function_call!=undefined){
+                        sendFunctionOutput(message.function_call.name, message.content )
+                    }
+                 
+                    
+
+                    if(message.content!=null){
+                        $('#chat').append(`<div class="user">Bot: ${message.content}</div>`)
+                    }
+
+                },
+                error: function (error) {
+                    console.error('Error sending messages:', error);
+                }
+            });
+        }
+
+        function sendFunctionOutput(name, content){
+            var role='function'
+            var order_id=2
+            var status='';
+            if(order_id==1){
+                status = "action_status=order-not-found"
+            } else {
+                status = "action_status=order-found, order_id=13, order_details=$500 timo boll zlc rocket, order_status=expected delivery date: June 30,"
+            } 
+
+            var message={
+                "role" : role,
+                "name": name,
+                "content": status
+            }
+
+            messages.push(message)
+
+            $.ajax({
+                url: '/send_message',
+                method: 'POST',  // Adjust the HTTP method as needed
+                data: JSON.stringify(messages),
+                contentType: 'application/json',
+                success: function (response) {
+                    let data = JSON.parse(response);
+                    let message = data.choices[0].message;
+                 
+                    messages.push(message);
+
+                    $('#chat').append(`<div class="user">Bot: ${message.content}</div>`)
+
+                },
+                error: function (error) {
+                    console.error('Error sending messages:', error);
+                }
+            });
+
+
+        }
+
+
+    </script>
+
+
+</body>
+
+</html>
