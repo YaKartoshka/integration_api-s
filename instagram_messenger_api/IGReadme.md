@@ -1,5 +1,12 @@
 # Integration Instagram Messenger API
 
+## Useful links
+- [All functions of the Instagram messenger platform](https://developers.facebook.com/docs/messenger-platform/instagram/features)  
+- [Grah api explorer](https://developers.facebook.com/tools/explorer/)  
+- [Freeform Messaging Types for Instagram Messaging](https://developers.facebook.com/docs/messenger-platform/instagram/features/send-message)  
+- [Webhooks for Messenger Platform(NodeJs)](https://developers.facebook.com/docs/messenger-platform/webhooks)  
+- [Example of Instagram support in API Messenger](https://developers.facebook.com/docs/messenger-platform/instagram/sample-experience)
+
 ## Limitations
 - Instagram messaging is available for the author's professional account, which has less than 500,000 subscribers.
 - Without extended access, you can write and receive messages from a user only if he has a role in this application
@@ -56,9 +63,4 @@ curl -i -X POST "https://graph.facebook.com/LATEST-API-VERSION/PAGE-ID/messages
 **PAGE-ACCESS-TOKEN - you already have got in second step, also you can get page access token on** [Graph API Explorer](https://developers.facebook.com/tools/explorer/)
 
 
-## Useful links
-- [All functions of the Instagram messenger platform](https://developers.facebook.com/docs/messenger-platform/instagram/features)  
-- [Grah api explorer](https://developers.facebook.com/tools/explorer/)  
-- [Freeform Messaging Types for Instagram Messaging](https://developers.facebook.com/docs/messenger-platform/instagram/features/send-message)  
-- [Webhooks for Messenger Platform(NodeJs)](https://developers.facebook.com/docs/messenger-platform/webhooks)  
-- [Example of Instagram support in API Messenger](https://developers.facebook.com/docs/messenger-platform/instagram/sample-experience)
+
