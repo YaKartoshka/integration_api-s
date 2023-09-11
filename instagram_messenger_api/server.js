@@ -162,7 +162,17 @@ router.get('/get-insta-profile', (req, res) => {
 
   request(options, function (error, response) {
     if (error) throw new Error(error);
-    res.send(response.body);
+    res.send(response.body);  
+    /*  response.body:
+      {
+        "name": "Erasyl Zarubekov",
+        "username": "chatbotik_insta",
+        "followers_count": 2,
+        "profile_picture_url": "https://scontent.fnqz1-1.fna.fbcdn.net/v/t51.2885-15/376768488_859069635577306_6193881127827181138_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=86c713&_nc_ohc=iLGecXYdw9kAX-yaqRg&_nc_ht=scontent.fnqz1-1.fna&edm=AL-3X8kEAAAA&oh=00_AfD3prprRjPlSOxvDTEMsSbphWvCKnAbxJnKDSsCEku6pQ&oe=650463AB",
+        "media_count": 0,
+        "id": "17841455280187448"
+      }
+    */
   });
 });
 
