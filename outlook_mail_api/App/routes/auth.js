@@ -108,11 +108,8 @@ router.get('/signin', async function (req, res, next) {
 
 router.get('/acquireToken', async function (req, res, next) {
 
-    console.log(1)
     req.session.csrfToken = cryptoProvider.createNewGuid();
 
-    console.log(2)
-    // encode the state param
     const state = cryptoProvider.base64Encode(
         JSON.stringify({
             csrfToken: req.session.csrfToken,
@@ -120,7 +117,6 @@ router.get('/acquireToken', async function (req, res, next) {
         })
     );
 
-    console.log(3)
     const authCodeUrlRequestParams = {
         state: state,
         scopes: ["Chat.Read",
@@ -140,7 +136,6 @@ router.get('/acquireToken', async function (req, res, next) {
         "User.ReadBasic.All"],
     };
 
-    console.log(4)
     const authCodeRequestParams = {
         scopes: ["Chat.Read",
         "Chat.ReadBasic",
@@ -158,8 +153,6 @@ router.get('/acquireToken', async function (req, res, next) {
         "User.Read.All",
         "User.ReadBasic.All"],
     };
-
-    console.log(5)
     // trigger the first leg of auth code flow
     return redirectToAuthCodeUrl(req, res, next, authCodeUrlRequestParams, authCodeRequestParams)
 });
