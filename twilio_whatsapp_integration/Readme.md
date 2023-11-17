@@ -54,10 +54,13 @@ app.post('/', (req, res) => {
 http.createServer(app).listen(3000, () => {
   console.log('Express server listening on port 3000');
 });
- ``` 
+ ```
+ GET request in the code above sends a WhatsApp message using the Twilio API and then responds with the string "hello."  
+ POST request creates a new instance of MessagingResponse and checks the content of the incoming message (req.body.Body) from listening webhook. 
  Then make all console commands:
  
 ```
+In the code above get req
 npm i twilio express body-parser http
 ```
 With req.body we get a request with sender data and you can do anything you want.  
@@ -66,5 +69,6 @@ Run your express app. Your webhook will need to be visible from the internet in 
 ngrok http 3000
 ```
 
-With webhook running, we’re ready for main part - testing our webhook!
+With webhook running, we’re ready for main part - testing our webhook!  
+You can test it on the [Sandbox](https://console.twilio.com/us1/develop/sms/try-it-out/whatsapp-learn?frameUrl=%2Fconsole%2Fsms%2Fwhatsapp%2Flearn%3Fx-target-region%3Dus1).  
 
