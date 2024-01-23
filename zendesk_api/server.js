@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const zendesk = require('node-zendesk');
-const port = 4000;
+const port = 3000;
 const request = require('request');
 var access_token;
 
@@ -12,16 +12,16 @@ app.get('/redirect', async (req, res) => {
 
     var options = {
         'method': 'POST',
-        'url': 'https://ailabssupport.zendesk.com/oauth/tokens',
+        'url': 'https://d3v-ailabs.zendesk.com/oauth/tokens',
         'headers': {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
             "grant_type": "authorization_code",
             "code": req.query.code,
-            "client_id": "webapi",
-            "client_secret": "945df1e82a60c113f69fd5c92ec13117a53f01a5f2ce5d182a6cac5d16abb596",
-            "redirect_uri": "https://ed65-77-245-104-174.ngrok-free.app/redirect",
+            "client_id": "zdg-webapi",
+            "client_secret": "8248b4fc22e7d94cf32707b8203c72299a5cca77258d6b9023397d567ac8b18f",
+            "redirect_uri": "https://586d-77-245-106-188.ngrok-free.app/redirect",
             "scope": "read"
         })
     };
@@ -34,24 +34,29 @@ app.get('/redirect', async (req, res) => {
 });
 
 app.get('/client', (req, res) => {
-    var url = 'https://ailabssupport.zendesk.com/oauth/authorizations/new?client_id=webapi&redirect_uri=https://ed65-77-245-104-174.ngrok-free.app/redirect&response_type=code&scope=users:read+hc:read+hc:write';
+    var url = 'https://d3v-ailabs.zendesk.com/oauth/authorizations/new?client_id=zdg-webapi&redirect_uri=https://586d-77-245-106-188.ngrok-free.app/redirect&response_type=code&scope=users:read+hc:read+hc:write';
     res.redirect(url);
 });
 
 app.get('/get_articles', (req, res) => {
     var articles = [];
     var client = zendesk.createClient({
-        username: 'era123',
-        token: access_token,
-        subdomain: 'ailabssupport',
+        token: '3cb516a753dafb74eadc22845e11b7cccce3838d47363ad9a296c31fbe94d484',
         oauth: true,
+        subdomain: 'd3v-ailabs',
         apiType: ['helpcenter'],
     });
-
-    client.helpcenter.articles.list().then((data)=>{
-        articles.push(data);
-    }).then(()=>{
+    // console.log(client.helpcenter.articles)
+    client.helpcenter.articles.list().then((data) => {
+        data.forEach((article) => {
+            articles.push(article);
+            console.log(article)
+        });
+    }).then(() => {
         res.send(articles);
+    }).catch((e)=>{
+        console.log(e)
+        res.send(e)
     });
 });
 
