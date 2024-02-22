@@ -21,6 +21,9 @@
         <form enctype="multipart/form-data" action="/extractText" method="post">
             <input type="file" class="form-control" id="input_file" name="input_file" required>
             <button class="btn btn-info mt-3" type="submit" id="submit_file">Extract content</button>
+            <br><br>
+            <input type="url" class="form-control" id="url" name="url" placeholder="URL" required>
+            <button class="btn btn-info mt-3" type="button" onclick="extractFromUrl()">Extract content</button>
         </form>
 
         <address>Too big text will not displayed</address>
@@ -28,7 +31,22 @@
         <div id="output">
             <%= data.text %>
         </div>
+
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function extractFromUrl(){
+            var url = $('#url').val().trim();
+            $.ajax({
+                url: '/text_from_url',
+                method: 'POST',
+                data: { url: url},
+                success: function(r){
+                    $('#output').html(r);
+                }
+    
+            })
+        }
+    </script>
 </body>
 </html>

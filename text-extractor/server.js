@@ -6,8 +6,10 @@ const textract = require('textract');
 const multer = require('multer');
 const fs = require('fs')
 const cookieParser = require("cookie-parser");
+const { convert } = require('html-to-text');
 const app = express();
 const port = process.env.PORT || 3001;
+
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -41,33 +43,71 @@ var data = {
 }
 
 app.get('/', (req, res) => {
-    console.log(req)
+
     res.render('index', {
         data: data
     })
 })
 
-app.get('/test', (req,res)=>{
-    console.log(req)
+app.get('/test', (req, res) => {
     res.redirect('back')
 })
 
 app.post('/extractText', upload.single('input_file'), (req, res) => {
-    const input_file = req.file
-    console.log(input_file)
+    const input_file = req.file;
+
     textract.fromFileWithPath(`${input_file.path}`, function (error, text) {
         data['text'] = text
-        
+        console.log(text)
         res.send(data)
-        
+
         fs.unlink(`${input_file.path}`, (err) => { // Delete file after extracting teext
             if (err) throw err;
             console.log('deleted');
         });
-    })
+    });
+
+});
+
+app.post('/text_from_url', (req, res) => {
+    const url = req.body.url;
+    const request = require('request');
+
+    request(url, (error, response, body) => {
+        if (!error && response.statusCode === 200) {
+            var text = convert(body)
+            // text = text.replace(/\n{2,}/g, '\n\n');
+            text = text.replace(/\[(.*?)\]/g, '$1');
+            console.log(text);
+            res.send(text)
+        } else {
+            console.error(error);
+        }
+    });
+});
 
 
-})
+
+
+// mammoth.extractRawText({ path: `${input_file.path}` })
+//     .then(function (result) {
+//         var text = result.value; // The raw text
+//         text = result.value.replace(/\n{2,}/g, '\n\n');
+//         console.log(text)
+//         console.log("Content extracted successfully.");
+//         data['text'] = text
+//         console.log(text)
+//         res.send(data)
+
+//         fs.unlink(`${input_file.path}`, (e) => { // Delete file after extracting teext
+//             if (e) throw e;
+//             console.log('deleted');
+//         });
+//     })
+//     .catch(function (error) {
+//         console.error(error);
+//     });
+
 
 app.listen(port, () => {
     console.log("App is listening at host: http://localhost:3001");

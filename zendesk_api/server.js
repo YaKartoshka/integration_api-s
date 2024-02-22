@@ -20,7 +20,7 @@ app.get('/redirect', async (req, res) => {
             "grant_type": "authorization_code",
             "code": req.query.code,
             "client_id": "zdg-webapi",
-            "client_secret": "8248b4fc22e7d94cf32707b8203c72299a5cca77258d6b9023397d567ac8b18f",
+            "client_secret": "dcde64be6c82459165c442fe07c2ec54662151d2c133638611ec252299f90b41",
             "redirect_uri": "https://586d-77-245-106-188.ngrok-free.app/redirect",
             "scope": "read"
         })
