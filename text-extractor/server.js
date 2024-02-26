@@ -1,9 +1,10 @@
 const express = require("express");
-
+const cheerio = require('cheerio')
 const path = require('path')
 const bodyParser = require("body-parser");
 const textract = require('textract');
 const multer = require('multer');
+const mammoth = require('mammoth')
 const fs = require('fs')
 const cookieParser = require("cookie-parser");
 const { convert } = require('html-to-text');
@@ -56,17 +57,53 @@ app.get('/test', (req, res) => {
 app.post('/extractText', upload.single('input_file'), (req, res) => {
     const input_file = req.file;
 
-    textract.fromFileWithPath(`${input_file.path}`, function (error, text) {
-        data['text'] = text
-        console.log(text)
-        res.send(data)
+    mammoth.convertToHtml({ path: `${input_file.path}` })
+        .then(function (result) {
+            var html = result.value;
+            const $ = cheerio.load(html);
+            $('img').each((index, element) => {
+                element.attribs['src'] = '';
+            });
+            $('a').each((index, element) => {
+                const text = $(element).text();
+                const href = $(element).attr('href');
+                if (text && href) {
+                    $(element).text(`(${text})`);
+                }
+            });
 
-        fs.unlink(`${input_file.path}`, (err) => { // Delete file after extracting teext
-            if (err) throw err;
-            console.log('deleted');
+            const text = convert($.html(), {
+                formatters: {
+                    // Create a formatter.
+                    'fooBlockFormatter': function (elem, walk, builder, formatOptions) {
+
+                        if (elem.name == 'a' && elem.attribs && elem.children.length) {
+
+
+                            builder.openBlock({ leadingLineBreaks: formatOptions.leadingLineBreaks || 1 });
+                            walk(elem.children, builder);
+
+                            builder.addInline(`[${elem.attribs.href}]`);
+                            builder.closeBlock({ trailingLineBreaks: formatOptions.trailingLineBreaks || 1 });
+                        }
+                    }
+                },
+                selectors: [
+                    {
+                        selector: 'a',
+                        format: 'fooBlockFormatter',
+                        options: { leadingLineBreaks: 0, trailingLineBreaks: 0 }
+                    }
+                ]
+            });
+            res.send(text);
+        })
+        .catch(function (error) {
+            console.error(error);
         });
+    fs.unlink(`${input_file.path}`, (err) => {
+        if (err) console.log("pdfExtract.ERR->", err);
     });
-
 });
 
 app.post('/text_from_url', (req, res) => {
@@ -79,7 +116,7 @@ app.post('/text_from_url', (req, res) => {
             // text = text.replace(/\n{2,}/g, '\n\n');
             text = text.replace(/\[(.*?)\]/g, '$1');
             console.log(text);
-            res.send(text)
+            res.send(text);
         } else {
             console.error(error);
         }
@@ -87,26 +124,6 @@ app.post('/text_from_url', (req, res) => {
 });
 
 
-
-
-// mammoth.extractRawText({ path: `${input_file.path}` })
-//     .then(function (result) {
-//         var text = result.value; // The raw text
-//         text = result.value.replace(/\n{2,}/g, '\n\n');
-//         console.log(text)
-//         console.log("Content extracted successfully.");
-//         data['text'] = text
-//         console.log(text)
-//         res.send(data)
-
-//         fs.unlink(`${input_file.path}`, (e) => { // Delete file after extracting teext
-//             if (e) throw e;
-//             console.log('deleted');
-//         });
-//     })
-//     .catch(function (error) {
-//         console.error(error);
-//     });
 
 
 app.listen(port, () => {
