@@ -47,9 +47,10 @@
 
             // Make the AJAX request
             $.ajax({
-                url: 'https://3c4c-178-89-74-252.ngrok-free.app/pdf-extract',
+                url: 'http://localhost:4000/extractText',
                 type: 'POST',
                 data: formData,
+                dataType:'json',
                 processData: false,
                 contentType: false,
                 success: function(response) {

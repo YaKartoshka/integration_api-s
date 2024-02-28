@@ -3,11 +3,12 @@ const path = require('path')
 const bodyParser = require("body-parser");
 const multer = require('multer');
 const fs = require('fs')
-
-const textract = require('@vtfk/pdf-text-reader');
-
+const cheerio = require('cheerio')
+const { convert } = require('html-to-text');
+const { exec } = require('child_process');
 const app = express();
 const port = process.env.PORT || 4000;
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.json());
@@ -23,7 +24,7 @@ const multer_storage = multer.diskStorage({
   },
   filename(req, file, cb) {
 
-    cb(null, `${file.size}`)
+    cb(null, `${file.originalname}`)
   }
 })
 
@@ -41,7 +42,6 @@ var data = {
 }
 
 app.get('/', (req, res) => {
-  console.log(req)
   res.render('index', {
     data: data
   })
@@ -49,45 +49,73 @@ app.get('/', (req, res) => {
 
 
 app.post('/extractText', upload.single('input_file'), async (req, res) => {
+  var r = { r: 1 };
   if (!req.file) {
     res.send('none')
   } else {
     const input_file = req.file
-    console.log(input_file)
-    var url="https://1015-45-86-82-147.ngrok-free.app/"
+    const convertedFile = input_file.originalname + Math.random().toString(4)
+    exec(`py pdf_extractor/extractor.py ${input_file.path} ${input_file.originalname}`, (error, content, stderr) => {
+      if (error) {
+        console.log("urlExtract.ERR->", error);
+        return res.send(JSON.stringify(r));
+      }
 
-    const axios = require('axios');
-    // let data = JSON.stringify({
-    //   "url": "https://pdfobject.com/pdf/sample.pdf",
-    //   "inline": true,
-    //   "async": false
-    // });
-
-    // let config = {
-    //   method: 'post',
-    //   maxBodyLength: Infinity,
-    //   url: 'https://api.pdf.co/v1/pdf/convert/to/text',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'x-api-key': 'era.dev404@gmail.com_2dc43c38d17699d0b98d4cff482ff946e8c0253b7a58cf9e93f96c50e3b8d3bbebd69e77'
-    //   },
-    //   data: data
-    // };
-
-    // axios.request(config)
-    //   .then((response) => {
-    //     let d = {
-    //       text : response.data.body
-    //     }
-    //     res.send(d);
+      fs.readFile(`${input_file.path}.html`, 'utf8', (err, data) => {
         
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-  }
+        const $ = cheerio.load(data);
+        $('img').each((index, element) => {
+          element.attribs['src'] = '';
+        });
+        $('a').each((index, element) => {
+          const text = $(element).text();
+          const href = $(element).attr('href');
+          if (text && href) {
+            $(element).text(`(${text})`);
+          }
+        });
+        const text = convert($.html(), {
+          formatters: {
+            // Create a formatter.
+            'fooBlockFormatter': function (elem, walk, builder, formatOptions) {
 
-})
+              if (elem.name == 'a' && elem.attribs && elem.children.length) {
+
+
+                builder.openBlock({ leadingLineBreaks: formatOptions.leadingLineBreaks || 1 });
+                walk(elem.children, builder);
+
+                builder.addInline(`[${elem.attribs.href}]`);
+                builder.closeBlock({ trailingLineBreaks: formatOptions.trailingLineBreaks || 1 });
+              }
+            }
+          },
+          selectors: [
+            {
+              selector: 'a',
+              format: 'fooBlockFormatter',
+              options: { leadingLineBreaks: 0, trailingLineBreaks: 0 }
+            }
+          ]
+        });
+        console.log(text)
+        res.send(text);
+
+        fs.unlink(`${input_file.path}.html`, (err) => {
+          if (err) console.log("pdfExtract.ERR->", err);
+        });
+        fs.unlink(`${input_file.path}`, (err) => {
+          if (err) console.log("pdfExtract.ERR->", err);
+        });
+    
+      });
+
+    });
+    
+  
+
+  }
+});
 
 
 app.listen(port, () => {
