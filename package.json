@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node pdf_extractor/server.js",
-    "start-dev": "nodemon pdf_extractor/server.js"
+    "start": "node text-extractor/server.js",
+    "start-dev-te": "nodemon text-extractor/server.js",
+    "start-dev-pe": "nodemon pdf_extractor/server.js"
   },
   "keywords": [],
   "author": "",

@@ -36,9 +36,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     $(document).ready(function() {
-        $('#input_file').on('change', function() {
+        $('#submit_file').on('click', function() {
             // Get the file input element and its selected file
-            const fileInput = this;
+            const fileInput = document.getElementById('input_file');
             const file = fileInput.files[0];
 
             // Create a FormData object to send the file data

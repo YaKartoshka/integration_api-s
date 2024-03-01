@@ -44,7 +44,6 @@ const upload = multer({
 })
 
 
-
 app.get('/', (req, res) => {
 
     res.render('index')
@@ -54,9 +53,8 @@ app.get('/test', (req, res) => {
     res.redirect('back')
 })
 
-app.post('/extractText', upload.single('input_file'), (req, res) => {
+app.post('/docxExtractText', upload.single('input_file'), (req, res) => {
     const input_file = req.file;
-
     mammoth.convertToHtml({ path: `${input_file.path}` })
         .then(function (result) {
             var html = result.value;
@@ -67,23 +65,27 @@ app.post('/extractText', upload.single('input_file'), (req, res) => {
             $('a').each((index, element) => {
                 const text = $(element).text();
                 const href = $(element).attr('href');
-                if (text && href) {
+
+
+                if (text && href && !isValidURL(text)) {
                     $(element).text(`(${text})`);
+                } else if (isValidURL(text) && isValidURL(href)) {
+                    $(element).text(`${href}`);
                 }
             });
 
             const text = convert($.html(), {
                 formatters: {
                     // Create a formatter.
-                    'fooBlockFormatter': function (elem, walk, builder, formatOptions) {
+                    'linkFormatter': function (elem, walk, builder, formatOptions) {
 
                         if (elem.name == 'a' && elem.attribs && elem.children.length) {
-
-
                             builder.openBlock({ leadingLineBreaks: formatOptions.leadingLineBreaks || 1 });
                             walk(elem.children, builder);
 
-                            builder.addInline(`[${elem.attribs.href}]`);
+                            if (!(isValidURL(elem.children[0].data))) builder.addInline(`[${elem.attribs.href}]`);
+
+
                             builder.closeBlock({ trailingLineBreaks: formatOptions.trailingLineBreaks || 1 });
                         }
                     }
@@ -91,12 +93,13 @@ app.post('/extractText', upload.single('input_file'), (req, res) => {
                 selectors: [
                     {
                         selector: 'a',
-                        format: 'fooBlockFormatter',
+                        format: 'linkFormatter',
                         options: { leadingLineBreaks: 0, trailingLineBreaks: 0 }
                     }
                 ]
             });
-            res.send(text);
+            // console.log(JSON.stringify(text)
+            res.send(JSON.stringify(text));
         })
         .catch(function (error) {
             console.error(error);
@@ -132,16 +135,16 @@ app.post('/text_from_url', async (req, res) => {
 
     else
 
-    if (fileType == 'text/html') {
-        exec(`trafilatura -u "${url}" --links --no-comments --no-tables`, (error, content, stderr) => {
-            if (error) {
-                console.log("urlExtract.ERR->", error);
-                r['r'] = 0;
-                return res.send(JSON.stringify(r));
-            }
-            res.send(content);
-        });
-    }
+        if (fileType == 'text/html') {
+            exec(`trafilatura -u "${url}" --links --no-comments --no-tables`, (error, content, stderr) => {
+                if (error) {
+                    console.log("urlExtract.ERR->", error);
+                    r['r'] = 0;
+                    return res.send(JSON.stringify(r));
+                }
+                res.send(content);
+            });
+        }
 });
 
 function getFileTypeFromUrl(url) {
@@ -157,6 +160,12 @@ function getFileTypeFromUrl(url) {
     });
 }
 
+
+function isValidURL(url) {
+    const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
+    const wwwUrlRegex = /^www\.[^ "]+\.[a-z]{2,}$/i;
+    return urlRegex.test(url) || wwwUrlRegex.test(url);
+}
 
 app.listen(port, () => {
     console.log("App is listening at host: http://localhost:3001");

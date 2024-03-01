@@ -55,60 +55,62 @@ app.post('/extractText', upload.single('input_file'), async (req, res) => {
   } else {
     const input_file = req.file
     const convertedFile = input_file.originalname + Math.random().toString(4)
-    exec(`py pdf_extractor/extractor.py ${input_file.path} ${input_file.originalname}`, (error, content, stderr) => {
+    console.log(input_file.path)
+    exec(`py pdf_extractor/extractor.py "${input_file.path}" ${input_file.originalname}`, (error, content, stderr) => {
       if (error) {
         console.log("urlExtract.ERR->", error);
         return res.send(JSON.stringify(r));
       }
+      console.log(content)
 
-      fs.readFile(`${input_file.path}.html`, 'utf8', (err, data) => {
+      // fs.readFile(`${input_file.path}.html`, 'utf8', (err, data) => {
         
-        const $ = cheerio.load(data);
-        $('img').each((index, element) => {
-          element.attribs['src'] = '';
-        });
-        $('a').each((index, element) => {
-          const text = $(element).text();
-          const href = $(element).attr('href');
-          if (text && href) {
-            $(element).text(`(${text})`);
-          }
-        });
-        const text = convert($.html(), {
-          formatters: {
-            // Create a formatter.
-            'fooBlockFormatter': function (elem, walk, builder, formatOptions) {
+      //   const $ = cheerio.load(data);
+      //   $('img').each((index, element) => {
+      //     element.attribs['src'] = '';
+      //   });
+      //   $('a').each((index, element) => {
+      //     const text = $(element).text();
+      //     const href = $(element).attr('href');
+      //     if (text && href) {
+      //       $(element).text(`(${text})`);
+      //     }
+      //   });
+      //   const text = convert($.html(), {
+      //     formatters: {
+      //       // Create a formatter.
+      //       'fooBlockFormatter': function (elem, walk, builder, formatOptions) {
 
-              if (elem.name == 'a' && elem.attribs && elem.children.length) {
+      //         if (elem.name == 'a' && elem.attribs && elem.children.length) {
 
 
-                builder.openBlock({ leadingLineBreaks: formatOptions.leadingLineBreaks || 1 });
-                walk(elem.children, builder);
+      //           builder.openBlock({ leadingLineBreaks: formatOptions.leadingLineBreaks || 1 });
+      //           walk(elem.children, builder);
 
-                builder.addInline(`[${elem.attribs.href}]`);
-                builder.closeBlock({ trailingLineBreaks: formatOptions.trailingLineBreaks || 1 });
-              }
-            }
-          },
-          selectors: [
-            {
-              selector: 'a',
-              format: 'fooBlockFormatter',
-              options: { leadingLineBreaks: 0, trailingLineBreaks: 0 }
-            }
-          ]
-        });
-        console.log(text)
-        res.send(text);
+      //           builder.addInline(`[${elem.attribs.href}]`);
+      //           builder.closeBlock({ trailingLineBreaks: formatOptions.trailingLineBreaks || 1 });
+      //         }
+      //       }
+      //     },
+      //     selectors: [
+      //       {
+      //         selector: 'a',
+      //         format: 'fooBlockFormatter',
+      //         options: { leadingLineBreaks: 0, trailingLineBreaks: 0 }
+      //       }
+      //     ]
+      //   });
+      //   console.log(text)
+      //   res.send(text);
 
-        fs.unlink(`${input_file.path}.html`, (err) => {
-          if (err) console.log("pdfExtract.ERR->", err);
-        });
-        fs.unlink(`${input_file.path}`, (err) => {
-          if (err) console.log("pdfExtract.ERR->", err);
-        });
+      //   fs.unlink(`${input_file.path}.html`, (err) => {
+      //     if (err) console.log("pdfExtract.ERR->", err);
+      //   });
+      //   fs.unlink(`${input_file.path}`, (err) => {
+      //     if (err) console.log("pdfExtract.ERR->", err);
+      //   });
     
-      });
+      // });
 
     });
     

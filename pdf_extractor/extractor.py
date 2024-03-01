@@ -1,27 +1,31 @@
 import sys
-from spire.pdf.common import *
-from spire.pdf import *
+from langchain_community.document_loaders import UnstructuredHTMLLoader
+from langchain_community.document_loaders import PyPDFLoader
+from langchain_community.document_loaders import Docx2txtLoader
 
-def extract_text_to_html(pdf_file_path, output_html_path):
-    # Create an object of the PdfDocument class
-    doc = PdfDocument()
+def extract_text_html(file_path):
+    loader = UnstructuredHTMLLoader(file_path)
+    data = loader.load()
+    print(data)
 
-    # Load the PDF file
-    doc.LoadFromFile(pdf_file_path)
+def extract_text_pdf(file_path):
+    loader = PyPDFLoader(file_path)
+    pages = loader.load_and_split()   
+    print(pages[0])
 
-    # Save the content to an HTML file
-    doc.SaveToFile(output_html_path, FileFormat.HTML)
+def extract_text_docx(file_path):
+    loader = Docx2txtLoader(file_path)
+    data = loader.load()
+    print(data)
 
-    # Close the document
-    doc.Close()
+
 
 if __name__ == "__main__":
-    # Check if the PDF file path is provided
     if len(sys.argv) < 2:
         print("Usage: python script.py <path_to_pdf>")
         sys.exit(1)
 
-    pdf_file_path = sys.argv[1]
-    fileName = sys.argv[2]
-    output_html_path = f"./pdf_extractor/files/{fileName}.html"
-    extract_text_to_html(pdf_file_path, output_html_path)
+    file_path = sys.argv[1]
+    # fileName = sys.argv[2]
+    # output_html_path = f"./pdf_extractor/files/{fileName}.html"
+    extract_text_docx(file_path)

@@ -20,24 +20,51 @@
 <body>
     <div class="container p-5 my-5 border">
         <h2>Text-extractor</h2>
-        <form enctype="multipart/form-data" action="/extractText" method="post">
-            <input type="file" class="form-control" id="input_file" name="input_file" required>
-            <button class="btn btn-info mt-3" type="submit" id="submit_file">Extract content</button>
-            <br><br>
 
-        </form>
+        <input type="file" class="form-control" id="input_file" name="input_file" required>
+        <button class="btn btn-info mt-3" type="submit" id="submit_file">Extract content</button>
+        <br><br>
+
+
         <input type="url" class="form-control" id="url" name="url" placeholder="URL" required>
         <button class="btn btn-info mt-3" type="button" onclick="extractFromUrl()">Extract content</button>
 
         <!-- <address>Too big text will not displayed</address> -->
 
         <div id="output">
-         
+
         </div>
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        $('#submit_file').on('click', function () {
+            const fileInput = document.getElementById('input_file');
+            const file = fileInput.files[0];
+
+            const formData = new FormData();
+            formData.append('input_file', file);
+
+            $.ajax({
+                url: '/docxExtractText',
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    // Handle the response from the server
+                    console.log('Response:', response);
+                    document.getElementById('output').innerHTML = doLinks(response);
+                },
+                error: function (error) {
+                    // Handle any errors that occur during the request
+                    console.error('Error:', error);
+                }
+            });
+
+        });
+
         function extractFromUrl() {
             var url = $('#url').val().trim();
             $.ajax({
@@ -49,6 +76,23 @@
                 }
 
             })
+        }
+
+
+
+        function isValidURL(url) {
+            const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
+            const wwwUrlRegex = /^www\.[^ "]+\.[a-z]{2,}$/i;
+            return urlRegex.test(url) || wwwUrlRegex.test(url);
+        }
+
+        function doLinks(text) {
+            text = text.replace(/\((.*?)\)\[(.*?)\]/g, '<a href="$2" target="_blank">$1</a>');
+
+            const urlRegex = /(?<!<a[^>]*?)(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])(?![^<]*?<\/a>)/ig;
+            text = text.replace(urlRegex, '<a href="$1" target="_blank">$1</a>');
+
+            return text;
         }
     </script>
 </body>
