@@ -13,6 +13,7 @@
             margin: 20px auto;
             width: 1100px;
             min-height: 400px;
+            white-space: pre-wrap;
         }
     </style>
 </head>
@@ -55,7 +56,7 @@
                 success: function (response) {
                     // Handle the response from the server
                     console.log('Response:', response);
-                    document.getElementById('output').innerHTML = doLinks(response);
+                    $('#output').html(doLinks(response));
                 },
                 error: function (error) {
                     // Handle any errors that occur during the request
@@ -72,9 +73,9 @@
                 method: 'POST',
                 data: { url: url },
                 success: function (r) {
+                    console.log(r)
                     $('#output').html(r);
                 }
-
             })
         }
 
