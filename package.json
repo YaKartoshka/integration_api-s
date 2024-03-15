@@ -5,15 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node text-extractor/server.js",
-    "start-dev-te": "nodemon text-extractor/server.js",
-    "start-dev-pe": "nodemon pdf_extractor/server.js"
+    "start": "node langchain/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@azure/msal-node": "^1.18.1",
+    "@langchain/community": "^0.0.37",
+    "@langchain/openai": "^0.0.19",
     "@vitalets/google-translate-api": "^9.2.0",
     "@vtfk/pdf-text-reader": "^1.1.2",
     "@zohocrm/nodejs-sdk-2.0": "^6.0.0",
@@ -35,10 +35,12 @@
     "geoip-lite": "^1.4.7",
     "google-translate-api": "^2.3.0",
     "hbs": "^4.2.0",
+    "hnswlib-node": "^1.4.2",
     "html-to-text": "^9.0.5",
     "http-errors": "^2.0.0",
     "intercom-client": "^5.0.0",
     "jsforce": "^1.11.0",
+    "langchain": "^0.1.27",
     "mammoth": "^1.7.0",
     "moment": "^2.29.4",
     "morgan": "^1.10.0",
