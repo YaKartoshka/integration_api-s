@@ -100,13 +100,14 @@ app.post('/docxExtractText', upload.single('input_file'), (req, res) => {
             });
             // console.log(JSON.stringify(text)
             res.send(JSON.stringify(text));
+            fs.unlink(`${input_file.path}`, (err) => {
+                if (err) console.log("pdfExtract.ERR->", err);
+            });
         })
         .catch(function (error) {
             console.error(error);
         });
-    fs.unlink(`${input_file.path}`, (err) => {
-        if (err) console.log("pdfExtract.ERR->", err);
-    });
+
 });
 
 app.post('/text_from_url', async (req, res) => {
