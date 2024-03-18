@@ -31,6 +31,12 @@ class CustomVectorStore extends VectorStore {
     this.memoryVectors = this.memoryVectors.concat(memoryVectors);
   }
 
+  async deleteDocuments(docIds) {
+    this.memoryVectors = this.memoryVectors.filter(
+      (vector) => !docIds.includes(vector.metadata.id)
+    );
+  }
+
   async similaritySearchVectorWithScore(query, k, filter) {
     const filterFunction = (memoryVector) => {
       if (!filter) {
