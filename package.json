@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node langchain/server.js"
+    "start": "node tiktoken/server.js"
   },
   "keywords": [],
   "author": "",
@@ -40,6 +40,7 @@
     "html-to-text": "^9.0.5",
     "http-errors": "^2.0.0",
     "intercom-client": "^5.0.0",
+    "js-tiktoken": "^1.0.10",
     "jsforce": "^1.11.0",
     "langchain": "^0.1.27",
     "mammoth": "^1.7.0",
