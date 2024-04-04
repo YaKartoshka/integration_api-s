@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node tiktoken/server.js"
+    "start": "node claude/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.19.1",
     "@azure/msal-node": "^1.18.1",
     "@langchain/community": "^0.0.37",
     "@langchain/openai": "^0.0.19",
@@ -43,6 +44,7 @@
     "js-tiktoken": "^1.0.10",
     "jsforce": "^1.11.0",
     "langchain": "^0.1.27",
+    "llamaindex": "^0.2.1",
     "mammoth": "^1.7.0",
     "moment": "^2.29.4",
     "morgan": "^1.10.0",
@@ -61,6 +63,7 @@
     "pug": "^3.0.2",
     "read-file-tree": "^1.1.2",
     "request": "^2.88.2",
+    "shortlnk": "^1.1.2",
     "stripe": "^11.12.0",
     "textract": "^2.5.0",
     "twilio": "^4.7.2"
