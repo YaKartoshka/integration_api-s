@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '1588305461280187',
+                autoLogAppEvents: true,
+                xfbml: true,
+                version: 'v18.0'
+            });
+        };
+    </script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js">
+    </script>
+
+    <script>
+        // Facebook Login with JavaScript SDK
+        function launchWhatsAppSignup() {
+            FB.login(function (response) {
+                if (response.authResponse) {
+                    const accessToken = response.authResponse.accessToken;
+                    //Use this token to call the debug_token API and get the shared WABA's ID
+                } else {
+                    console.log('User cancelled login or did not fully authorize.');
+                }
+            }, {
+                config_id: '1011683780368358', // configuration ID obtained in the previous step goes here
+                response_type: 'code',     // must be set to 'code' for System User access token
+                override_default_response_type: true,
+                extras: {
+                    setup: {
+                    }
+                }
+            });
+        }
+    </script>
+
+    <button onclick="launchWhatsAppSignup()"
+        style="background-color: #1877f2; border: 0; border-radius: 4px; color: #fff; cursor: pointer; font-family: Helvetica, Arial, sans-serif; font-size: 16px; font-weight: bold; height: 40px; padding: 0 24px;">
+        Login with Facebook
+    </button>
+</body>
+
+</html>

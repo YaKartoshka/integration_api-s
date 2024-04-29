@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node claude/server.js"
+    "start": "node whatsapp_integration/server.js"
   },
   "keywords": [],
   "author": "",
