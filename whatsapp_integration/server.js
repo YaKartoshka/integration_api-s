@@ -50,11 +50,50 @@ app.post("/webhook", async (req, res) => {
       console.log(response.body);
     });
 
- 
+
   }
   res.sendStatus(200);
 
 });
+
+app.get('/access_token', (req, res) => {
+  const code = req.query.code;
+  var client_id = '1588305461280187';
+  var client_secret = 'b5e21683dc42b83209b15ff95d941a32'
+  var request = require('request');
+  var options = {
+    'method': 'GET',
+    'url': `https://graph.facebook.com/v17.0/oauth/access_token?client_id=${client_id}&client_secret=${client_secret}&code=${code}`,
+    'headers': {
+    }
+  };
+  request(options, function (error, response) {
+    if (error) throw new Error(error);
+    console.log(response.body);
+    res.send(response.body)
+
+  });
+
+});
+
+
+app.get('/get_wb_data', (req, res) => {
+  var request = require('request');
+  var access_token = req.query.access_token
+  var options = {
+    'method': 'GET',
+    'url': 'https://graph.facebook.com/v19.0/debug_token?input_token=' + access_token,
+    'headers': {
+      'Authorization': 'Bearer ' + access_token
+    }
+  };
+  request(options, function (error, response) {
+    if (error) throw new Error(error);
+    console.log(response.body);
+    res.send(response.body)
+  });
+ 
+})
 
 app.get("/webhook", (req, res) => {
   const verify_token = "hello";
