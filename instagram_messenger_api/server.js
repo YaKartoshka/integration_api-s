@@ -153,7 +153,7 @@ app.get('/get-instagram-id', (req, res) => {
 
 router.get('/get-insta-profile', (req, res) => {
   var instagram_id = "17841455280187448";
-  var access_token = "EAATYsedF4CYBO4ZCZAgAEc70YX3XCl6fB0UZC19zvnCiFwbwx8vsGDYxWf6a4lpcXeSfjWKyZCjZAjEF4R5TgPGAPtVwCZCqWMCcX6i2tlZBhYzc1N09iqwgPwfHQx1eLTb9nbQvu3q0zsP1P6srBZAYENqLzdJEI8uFSQZBrnze5DZBfkr3g86CrO6ww2dDUldqZCDJhvRUg5myZAMIkkmntAZDZD";
+  var access_token = "token";
   var options = {
     'method': 'GET',
     'url': `https://graph.facebook.com/v16.0/${instagram_id}?fields=name%2Cusername%2Cbiography%2Cfollowers_count%2Cprofile_picture_url%2Cmedia_count&access_token=${access_token}`,
