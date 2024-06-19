@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node whatsapp_integration/server.js"
+    "start": "node llamaparse/server.js"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +21,7 @@
     "algoliasearch": "^4.17.0",
     "axios": "^1.4.0",
     "body-parser": "^1.20.1",
+    "businessmessages": "^1.0.4",
     "carbon-connect-js": "^0.0.14",
     "cheerio": "^1.0.0-rc.12",
     "cloudmersive-convert-api-client": "^2.7.4",
@@ -36,6 +37,7 @@
     "fs": "^0.0.1-security",
     "geoip-lite": "^1.4.7",
     "google-translate-api": "^2.3.0",
+    "googleapis-common": "^7.2.0",
     "hbs": "^4.2.0",
     "hnswlib-node": "^1.4.2",
     "html-to-text": "^9.0.5",
@@ -44,7 +46,7 @@
     "js-tiktoken": "^1.0.10",
     "jsforce": "^1.11.0",
     "langchain": "^0.1.27",
-    "llamaindex": "^0.2.1",
+    "llamaindex": "^0.2.13",
     "mammoth": "^1.7.0",
     "moment": "^2.29.4",
     "morgan": "^1.10.0",
